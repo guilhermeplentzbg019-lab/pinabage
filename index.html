@@ -136,9 +136,14 @@
         </div>
     </section>
 
-    <!-- 4. MEMORIAL -->
-    <section id="memorial" class="py-28 border-t border-stone-800">
-        <div class="max-w-5xl mx-auto px-6">
+    <!-- 4. MEMORIAL (Com imagem de fundo temática) -->
+    <section id="memorial" class="py-28 border-t border-stone-800 relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="imagens/fundo-memorial.jpg" alt="Memorial Grupo de Bagé" class="w-full h-full object-cover" onerror="this.src='imagens/fundo-hero.jpg'">
+            <div class="absolute inset-0 bg-stone-950/90 backdrop-blur-[2px]"></div>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-6 relative z-10">
             <span class="text-amber-500 text-lg font-bold uppercase tracking-widest block mb-3">História e Legado</span>
             <h2 class="text-4xl sm:text-6xl font-serif font-bold text-stone-100 mb-8">Memorial Grupo de Bagé</h2>
             <p class="text-stone-200 text-2xl sm:text-3xl mb-12 leading-relaxed">Formado na década de 1950 por Glauco Rodrigues, Glênio Bianchetti, Danúbio Gonçalves e Carlos Scliar.</p>
@@ -162,7 +167,6 @@
 
     <!-- 6. VÍDEOS -->
     <section id="videos" class="py-28 border-t border-stone-800 relative overflow-hidden">
-        <!-- Imagem de Fundo Panorâmica com Overlay de Opacidade -->
         <div class="absolute inset-0 z-0">
             <img src="imagens/fundo-videos.jpg" alt="Pôr do sol em Bagé" class="w-full h-full object-cover" onerror="this.src='imagens/fundo-hero.jpg'">
             <div class="absolute inset-0 bg-stone-950/90 backdrop-blur-[2px]"></div>
