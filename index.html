@@ -161,8 +161,14 @@
     </section>
 
     <!-- 6. VÍDEOS -->
-    <section id="videos" class="py-28 border-t border-stone-800">
-        <div class="max-w-7xl mx-auto px-6">
+    <section id="videos" class="py-28 border-t border-stone-800 relative overflow-hidden">
+        <!-- Imagem de Fundo Panorâmica com Overlay de Opacidade -->
+        <div class="absolute inset-0 z-0">
+            <img src="imagens/fundo-videos.jpg" alt="Pôr do sol em Bagé" class="w-full h-full object-cover" onerror="this.src='imagens/fundo-hero.jpg'">
+            <div class="absolute inset-0 bg-stone-950/90 backdrop-blur-[2px]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="mb-16">
                 <span class="text-amber-500 text-lg font-bold uppercase tracking-widest block mb-3">Acervo Audiovisual</span>
                 <h2 class="text-4xl sm:text-6xl font-serif font-bold text-stone-100">Vídeos</h2>
@@ -247,7 +253,7 @@
             const listavideos = getVideos();
             const grid = document.getElementById('videos-grid');
             grid.innerHTML = listavideos.map(v => `
-                <div class="bg-stone-900 p-10 rounded-2xl border border-stone-800 card-art cursor-pointer shadow-xl flex flex-col justify-between" onclick="reproduzirVideo('${v.titulo}', '${v.categoria}', '${v.url}', '${v.desc}')">
+                <div class="bg-stone-900/90 backdrop-blur-md p-10 rounded-2xl border border-stone-800 card-art cursor-pointer shadow-xl flex flex-col justify-between hover:border-amber-500/50 transition-all" onclick="reproduzirVideo('${v.titulo}', '${v.categoria}', '${v.url}', '${v.desc}')">
                     <div>
                         <span class="text-sm font-bold text-amber-500 uppercase">${v.categoria}</span>
                         <h3 class="text-2xl font-serif font-bold text-stone-100 mt-3 mb-4">${v.titulo}</h3>
