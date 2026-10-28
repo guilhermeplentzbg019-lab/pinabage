@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento de Visitas Educativas | PINABAGE.COM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-stone-950 text-stone-200 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-stone-950/95 backdrop-blur-md border-b border-stone-800 shadow-lg">
+        <div class="w-full px-6 h-24 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-4 group shrink-0">
+                <div class="w-14 h-14 rounded-lg bg-stone-900 border border-amber-500/50 flex items-center justify-center overflow-hidden shadow">
+                    <img src="imagens/logo.png" alt="Logo Pinacoteca" class="w-full h-full object-contain p-1" onerror="this.src='imagens/logo.jpg'">
+                </div>
+                <div>
+                    <span class="font-serif font-bold text-xl text-stone-100 tracking-wider block leading-none">PINABAGE.COM</span>
+                    <span class="text-xs text-stone-400 uppercase tracking-widest block mt-1.5">Pinacoteca Municipal Norma Vasconcellos</span>
+                </div>
+            </a>
+
+            <nav class="hidden xl:flex items-center gap-10 text-base font-semibold uppercase tracking-wider text-stone-300">
+                <a href="index.html#acervo" class="hover:text-amber-400 transition-colors py-2">Acervo</a>
+                <a href="index.html#biografias" class="hover:text-amber-400 transition-colors py-2">Biografias</a>
+                <a href="index.html#exposicoes" class="hover:text-amber-400 transition-colors py-2">Exposições</a>
+                <a href="memorial.html" class="hover:text-amber-400 transition-colors py-2">Memorial</a>
+                <a href="index.html#visitas-educativas" class="text-amber-400 transition-colors py-2 border-b-2 border-amber-400">Visitas</a>
+                <a href="index.html#videos" class="hover:text-amber-400 transition-colors py-2">Vídeos</a>
+            </nav>
+
+            <div class="shrink-0 flex items-center gap-3" id="auth-menu-container"></div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="pt-36 pb-28 px-6 max-w-4xl mx-auto flex-grow w-full">
+        <div class="mb-12 text-center">
+            <span class="text-amber-500 text-sm font-bold uppercase tracking-widest block mb-2">Mediação Cultural</span>
+            <h1 class="text-4xl sm:text-6xl font-serif font-bold text-stone-100 mb-4">Agendar Visita Guiada / Escolar</h1>
+            <p class="text-stone-300 text-xl max-w-2xl mx-auto leading-relaxed">
+                Preencha o formulário abaixo. Ao clicar em enviar, os dados serão formatados e enviados diretamente para o WhatsApp da coordenação da Pinacoteca.
+            </p>
+        </div>
+
+        <!-- Formulário de Agendamento -->
+        <form onsubmit="enviarWhatsApp(event)" class="bg-stone-900 border border-stone-800 p-8 sm:p-12 rounded-3xl shadow-2xl space-y-8">
+            
+            <!-- 1. Dados da Instituição -->
+            <div>
+                <h2 class="text-xl font-serif font-bold text-amber-400 border-b border-stone-800 pb-3 mb-6">1. Dados da Instituição</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold text-stone-300 uppercase tracking-wider mb-2">Nome da Escola / Instituição *</label>
+                        <input type="text" id="instituicao" required placeholder="Ex: Colégio Estadual de Bagé" class="w-full bg-stone-950 border border-stone-800 rounded-xl px-4 py-3 text-stone-100 focus:outline-none focus:border-amber-500 transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-stone-300 uppercase tracking-wider mb-2">Tipo de Instituição *</label>
+                        <select id="tipo" required class="w-full bg-stone-950 border border-stone-800 rounded-xl px-4 py-3 text-stone-100 focus:outline-none focus:border-amber-500 transition-colors">
+                            <option value="">Selecione...</option>
+                            <option value="Escola Pública">Escola Pública (Municipal/Estadual)</option>
+                            <option value="Escola Particular">Escola Particular</option>
+                            <option value="Universidade / Faculdade">Universidade / Faculdade</option>
+                            <option value="Projeto Social / ONG">Projeto Social / ONG</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Responsável -->
+            <div>
+                <h2 class="text-xl font-serif font-bold text-amber-400 border-b border-stone-800 pb-3 mb-6">2. Responsável pelo Agendamento</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold text-stone-300 uppercase tracking-wider mb-2">Professor / Responsável *</label>
+                        <input type="text" id="responsavel" required placeholder="Nome completo" class="w-full bg-stone-950 border border-stone-800 rounded-xl px-4 py-3 text-stone-100 focus:outline-none focus:border-amber-500 transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-stone-300 uppercase tracking-wider mb-2">Telefone / WhatsApp para Contato *</label>
+                        <input type="tel" id="telefone" required placeholder="(53) 99999-9999" class="w-full bg-stone-950 border border-stone-800 rounded-xl px-4 py-3 text-stone-100 focus:outline-none focus:border-amber-500 transition-colors">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Detalhes da Visita -->
+            <div>
+                <h2 class="text-xl font-serif font-bold text-amber-400 border-b border-stone-800 pb-3 mb-6">3. Detalhes da Visita</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold text-stone-300 uppercase tracking-wider mb-2">Série / Nível Escolar *</label>
+                        <input type="text" id="nivel" required placeholder="Ex: 8º Ano do Ensino Fundamental" class="w-full bg-stone-950 border border-stone-800 rounded-xl px-4 py-3 text-stone-100 focus:outline-none focus:border-amber-500 transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-stone-300 uppercase tracking-wider mb-2">Quantidade de Alunos / Pessoas *</label>
+                        <input type="number" id="qtd" min="1" max="120" required placeholder="Ex: 30" class="w-full bg-stone-950 border border-stone-800 rounded-xl px-4 py-3 text-stone-100 focus:outline-none focus:border-amber-500 transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-stone-300 uppercase tracking-wider mb-2">Data Pretendida *</label>
+                        <input type="date" id="data" required class="w-full bg-stone-950 border border-stone-800 rounded-xl px-4 py-3 text-stone-100 focus:outline-none focus:border-amber-500 transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-stone-300 uppercase tracking-wider mb-2">Turno Pretendido *</label>
+                        <select id="turno" required class="w-full bg-stone-950 border border-stone-800 rounded-xl px-4 py-3 text-stone-100 focus:outline-none focus:border-amber-500 transition-colors">
+                            <option value="">Selecione o turno...</option>
+                            <option value="Manhã (09h às 11h)">Manhã (09h às 11h)</option>
+                            <option value="Tarde (14h às 16h)">Tarde (14h às 16h)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Observações -->
+            <div>
+                <label class="block text-sm font-bold text-stone-300 uppercase tracking-wider mb-2">Observações / Acessibilidade</label>
+                <textarea id="obs" rows="3" placeholder="Informe necessidades especiais, foco pedagógico ou outras observações." class="w-full bg-stone-950 border border-stone-800 rounded-xl px-4 py-3 text-stone-100 focus:outline-none focus:border-amber-500 transition-colors"></textarea>
+            </div>
+
+            <!-- Botão Enviar -->
+            <div class="text-center pt-4">
+                <button type="submit" class="w-full sm:w-auto px-10 py-5 rounded-2xl bg-amber-500 text-stone-950 font-bold text-lg uppercase tracking-widest hover:bg-amber-400 transition-all shadow-xl border border-amber-400">
+                    Enviar Solicitação via WhatsApp →
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <footer class="py-12 border-t border-stone-800 text-center text-stone-400 text-sm">
+        &copy; 2026 PINABAGE.COM — Pinacoteca Municipal Norma Vasconcellos (Bagé - RS)
+    </footer>
+
+    <script src="data.js"></script>
+    <script>
+        function atualizarMenuAuth() {
+            const container = document.getElementById('auth-menu-container');
+            const usuario = getUsuarioLogado();
+
+            if (usuario && usuario.role === 'admin') {
+                container.innerHTML = `
+                    <a href="admin.html" class="px-6 py-3 rounded-lg bg-amber-500 text-stone-950 text-sm font-bold uppercase tracking-wider hover:bg-amber-400 transition-all shadow-lg">Área Admin</a>
+                    <button onclick="fazerLogout()" class="px-4 py-3 rounded-lg bg-stone-900 border border-stone-800 text-stone-400 text-xs font-bold uppercase tracking-wider hover:text-stone-100 transition-all">Sair</button>
+                `;
+            } else if (usuario) {
+                container.innerHTML = `
+                    <span class="text-xs text-stone-400 hidden lg:inline">Olá, <b>${usuario.usuario}</b></span>
+                    <button onclick="fazerLogout()" class="px-5 py-3 rounded-lg bg-stone-900 border border-stone-800 text-stone-300 text-xs font-bold uppercase tracking-wider hover:text-stone-100 transition-all">Sair</button>
+                `;
+            } else {
+                container.innerHTML = `
+                    <a href="login.html" class="px-6 py-3 rounded-lg bg-amber-500/10 border border-amber-500/50 text-amber-400 text-sm font-bold uppercase tracking-wider hover:bg-amber-500 hover:text-stone-950 transition-all">Entrar / Cadastrar</a>
+                `;
+            }
+        }
+        atualizarMenuAuth();
+
+        function enviarWhatsApp(event) {
+            event.preventDefault();
+
+            const instituicao = document.getElementById('instituicao').value;
+            const tipo = document.getElementById('tipo').value;
+            const responsavel = document.getElementById('responsavel').value;
+            const telefone = document.getElementById('telefone').value;
+            const nivel = document.getElementById('nivel').value;
+            const qtd = document.getElementById('qtd').value;
+            const data = document.getElementById('data').value;
+            const turno = document.getElementById('turno').value;
+            const obs = document.getElementById('obs').value || 'Nenhuma observação informada.';
+
+            // Substitua abaixo pelo número de WhatsApp real da instituição com DDD (ex: 5553999999999)
+            const numeroWhatsApp = "555397104610";
+
+            const texto = `*SOLICITAÇÃO DE VISITA EDUCATIVA - PINABAGE.COM*%0A%0A` +
+                          ` *Instituição:* ${instituicao} (${tipo})%0A` +
+                          ` *Responsável:* ${responsavel}%0A` +
+                          ` *Contato:* ${telefone}%0A` +
+                          ` *Nível/Série:* ${nivel}%0A` +
+                          ` *Qtd. Alunos:* ${qtd}%0A` +
+                          ` *Data Pretendida:* ${data}%0A` +
+                          ` *Turno:* ${turno}%0A` +
+                          ` *Observações:* ${obs}`;
+
+            window.open(`https://wa.me/${numeroWhatsApp}?text=${texto}`, '_blank');
+        }
+    </script>
+</body>
+</html>

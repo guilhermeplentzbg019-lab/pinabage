@@ -29,7 +29,7 @@
                 <a href="galeria.html" class="hover:text-amber-400 transition-colors py-2">Galeria</a>
                 <a href="index.html#exposicoes" class="hover:text-amber-400 transition-colors py-2">Exposições</a>
                 <a href="index.html#memorial" class="hover:text-amber-400 transition-colors py-2">Memorial</a>
-                <a href="index.html#reserva-tecnica" class="hover:text-amber-400 transition-colors py-2">Reserva</a>
+                <a href="index.html#visitas-educativas" class="hover:text-amber-400 transition-colors py-2">Visitas</a>
                 <a href="index.html#videos" class="hover:text-amber-400 transition-colors py-2">Vídeos</a>
             </nav>
 
@@ -37,9 +37,8 @@
                 <a href="index.html" class="px-3.5 py-2 rounded-lg bg-stone-800 border border-stone-700 text-stone-300 text-xs font-bold uppercase tracking-wider hover:bg-stone-700 transition-all">
                     ← Voltar ao Início
                 </a>
-                <a href="admin.html" class="px-3.5 py-2 rounded-lg bg-amber-500/10 border border-amber-500/50 text-amber-400 text-xs font-bold uppercase tracking-wider hover:bg-amber-500 hover:text-stone-950 transition-all">
-                    Área Admin
-                </a>
+                <!-- Container dinâmico de Autenticação -->
+                <div id="auth-menu-container" class="flex items-center gap-2"></div>
             </div>
         </div>
     </header>
@@ -69,6 +68,23 @@
 
     <script src="data.js"></script>
     <script>
+        function atualizarMenuAuth() {
+            const container = document.getElementById('auth-menu-container');
+            const usuario = getUsuarioLogado();
+
+            if (usuario && usuario.role === 'admin') {
+                container.innerHTML = `
+                    <a href="admin.html" class="px-3.5 py-2 rounded-lg bg-amber-500/10 border border-amber-500/50 text-amber-400 text-xs font-bold uppercase tracking-wider hover:bg-amber-500 hover:text-stone-950 transition-all">
+                        Área Admin
+                    </a>
+                `;
+            } else {
+                container.innerHTML = ''; // Se não for admin, não exibe nada
+            }
+        }
+
+        atualizarMenuAuth();
+
         function renderArtistasPagina() {
             const artistas = getArtistas();
             const grid = document.getElementById('artistas-grid');
