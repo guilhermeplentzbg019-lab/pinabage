@@ -15,7 +15,7 @@ const artistasIniciais = [
         id: 1, 
         nome: "Adriana Riet", 
         origem: "Bagé, RS", 
-        nascimento: "Bagé - RS, 1970",
+        nascimento: "15/05/1970",
         fotoPerfil: "imagens/obra1.jpg",
         bio: "Adriana Bernardi Riet possui formação em Farmácia, mas encontrou na Arte a sua grande paixão. Iniciou seus estudos de pintura em Florianópolis (1994), participando de diversas exposições e desenvolvendo uma linguagem expressiva única no sul do estado.",
         obrasArtista: [
@@ -26,7 +26,7 @@ const artistasIniciais = [
         id: 2, 
         nome: "Aline de Leon", 
         origem: "Dom Pedrito, RS", 
-        nascimento: "Dom Pedrito - RS, 1968",
+        nascimento: "20/08/1968",
         fotoPerfil: "imagens/obra2.jpg",
         bio: "Aline Fontoura de Leon reside em Bagé e decidiu trilhar o caminho das artes, encontrando na aquarela a plenitude de sua criação e o retrato sensível das paisagens da região.",
         obrasArtista: [
@@ -68,6 +68,12 @@ function salvarObra(novaObra) {
     localStorage.setItem('obras_pinabage', JSON.stringify(obras));
 }
 
+function atualizarObra(obraAtualizada) {
+    let obras = getObras();
+    obras = obras.map(o => o.id === obraAtualizada.id ? obraAtualizada : o);
+    localStorage.setItem('obras_pinabage', JSON.stringify(obras));
+}
+
 function deletarObra(id) {
     let obras = getObras();
     obras = obras.filter(o => o.id !== id);
@@ -89,6 +95,12 @@ function salvarArtista(novoArtista) {
     novoArtista.id = Date.now();
     if (!novoArtista.obrasArtista) novoArtista.obrasArtista = [];
     artistas.unshift(novoArtista);
+    localStorage.setItem('artistas_pinabage', JSON.stringify(artistas));
+}
+
+function atualizarArtista(artistaAtualizado) {
+    let artistas = getArtistas();
+    artistas = artistas.map(a => a.id === artistaAtualizado.id ? artistaAtualizado : a);
     localStorage.setItem('artistas_pinabage', JSON.stringify(artistas));
 }
 

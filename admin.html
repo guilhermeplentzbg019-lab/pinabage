@@ -42,7 +42,8 @@
             <h2 class="text-2xl font-serif font-bold text-stone-100 mb-6 border-b border-stone-800 pb-4">Gerenciar Obras do Acervo</h2>
 
             <form id="form-obra" class="space-y-6 mb-12 bg-stone-950 p-6 rounded-xl border border-stone-800">
-                <h3 class="text-lg font-serif font-bold text-amber-500">Adicionar Nova Obra ao Acervo</h3>
+                <input type="hidden" id="obra-edit-id">
+                <h3 id="titulo-form-obra" class="text-lg font-serif font-bold text-amber-500">Adicionar Nova Obra ao Acervo</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Título da Obra</label>
@@ -70,15 +71,21 @@
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Enviar Imagem da Obra</label>
-                    <input type="file" id="obra-img-file" accept="image/*" required class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-stone-950 hover:file:bg-amber-400 cursor-pointer">
+                    <input type="file" id="obra-img-file" accept="image/*" class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-stone-950 hover:file:bg-amber-400 cursor-pointer">
+                    <span class="text-[10px] text-stone-500 mt-1 block">Deixe em branco caso não queira alterar a imagem atual ao editar.</span>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Descrição</label>
                     <textarea id="obra-desc" rows="3" required class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none"></textarea>
                 </div>
-                <button type="submit" class="w-full py-4 rounded-xl bg-amber-500 text-stone-950 font-bold text-sm uppercase tracking-widest hover:bg-amber-400 transition-all shadow-lg">
-                    Salvar e Publicar Obra
-                </button>
+                <div class="flex gap-4">
+                    <button type="submit" id="btn-submit-obra" class="w-full py-4 rounded-xl bg-amber-500 text-stone-950 font-bold text-sm uppercase tracking-widest hover:bg-amber-400 transition-all shadow-lg">
+                        Salvar e Publicar Obra
+                    </button>
+                    <button type="button" id="btn-cancelar-obra" onclick="cancelarEdicaoObra()" class="hidden px-6 py-4 rounded-xl bg-stone-800 text-stone-300 font-bold text-xs uppercase tracking-widest hover:bg-stone-700 transition-all">
+                        Cancelar
+                    </button>
+                </div>
             </form>
 
             <h3 class="text-xl font-serif font-bold text-stone-100 mb-6">Obras Atuais no Acervo</h3>
@@ -90,7 +97,8 @@
             <h2 class="text-2xl font-serif font-bold text-stone-100 mb-6 border-b border-stone-800 pb-4">Gerenciar Artistas e Biografias</h2>
 
             <form id="form-artista" class="space-y-6 mb-12 bg-stone-950 p-6 rounded-xl border border-stone-800">
-                <h3 class="text-lg font-serif font-bold text-amber-500">Adicionar Novo Artista / Biografia Completa</h3>
+                <input type="hidden" id="artista-edit-id">
+                <h3 id="titulo-form-artista" class="text-lg font-serif font-bold text-amber-500">Adicionar Novo Artista / Biografia Completa</h3>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -105,12 +113,13 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Data de Nascimento (Dia, Mês e Ano)</label>
+                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Data de Nascimento</label>
                         <input type="date" id="artista-nascimento" class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Foto de Perfil do Artista (Quadrada)</label>
-                        <input type="file" id="artista-img-file" accept="image/*" required class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-stone-950 hover:file:bg-amber-400 cursor-pointer">
+                        <input type="file" id="artista-img-file" accept="image/*" class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-stone-950 hover:file:bg-amber-400 cursor-pointer">
+                        <span class="text-[10px] text-stone-500 mt-1 block">Deixe em branco para manter a foto atual ao editar.</span>
                     </div>
                 </div>
 
@@ -121,21 +130,26 @@
 
                 <!-- Cadastro de Obras do Artista -->
                 <div class="bg-stone-900 p-4 rounded-xl border border-stone-800 space-y-4">
-                    <h4 class="text-sm font-serif font-bold text-amber-400">Adicionar Obras deste Artista (Opcional)</h4>
+                    <h4 class="text-sm font-serif font-bold text-amber-400">Adicionar / Atualizar Obras deste Artista</h4>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <input type="text" id="obra-art-titulo" placeholder="Título da Obra" class="bg-stone-950 border border-stone-800 rounded-lg p-2.5 text-stone-200 text-xs outline-none">
                         <input type="text" id="obra-art-ano" placeholder="Ano da Obra" class="bg-stone-950 border border-stone-800 rounded-lg p-2.5 text-stone-200 text-xs outline-none">
                         <input type="file" id="obra-art-img-file" accept="image/*" class="bg-stone-950 border border-stone-800 rounded-lg p-2 text-stone-200 text-xs file:py-1 file:px-2 file:rounded file:border-0 file:bg-amber-500 file:text-stone-950 cursor-pointer">
                     </div>
                     <textarea id="obra-art-desc" rows="2" placeholder="Descrição da obra do artista..." class="w-full bg-stone-950 border border-stone-800 rounded-lg p-2.5 text-stone-200 text-xs outline-none"></textarea>
-                    <button type="button" onclick="adicionarObraTemporaria()" class="px-4 py-2 bg-stone-800 hover:bg-stone-700 text-amber-400 text-xs font-bold rounded-lg transition-all">+ Adicionar esta Obra à Lista do Artista</button>
+                    <button type="button" onclick="adicionarObraTemporaria()" class="px-4 py-2 bg-stone-800 hover:bg-stone-700 text-amber-400 text-xs font-bold rounded-lg transition-all">+ Adicionar esta Obra à Lista</button>
                     
                     <div id="lista-obras-temp" class="text-xs text-stone-400 mt-2 space-y-1">Nenhuma obra adicionada ainda.</div>
                 </div>
 
-                <button type="submit" class="w-full py-4 rounded-xl bg-amber-500 text-stone-950 font-bold text-sm uppercase tracking-widest hover:bg-amber-400 transition-all shadow-lg">
-                    Salvar e Publicar Artista
-                </button>
+                <div class="flex gap-4">
+                    <button type="submit" id="btn-submit-artista" class="w-full py-4 rounded-xl bg-amber-500 text-stone-950 font-bold text-sm uppercase tracking-widest hover:bg-amber-400 transition-all shadow-lg">
+                        Salvar e Publicar Artista
+                    </button>
+                    <button type="button" id="btn-cancelar-artista" onclick="cancelarEdicaoArtista()" class="hidden px-6 py-4 rounded-xl bg-stone-800 text-stone-300 font-bold text-xs uppercase tracking-widest hover:bg-stone-700 transition-all">
+                        Cancelar
+                    </button>
+                </div>
             </form>
 
             <h3 class="text-xl font-serif font-bold text-stone-100 mb-6">Artistas Cadastrados</h3>
@@ -198,32 +212,84 @@
                             <p class="text-xs text-stone-400">${o.autor} (${o.ano})</p>
                         </div>
                     </div>
-                    <button onclick="removerObra(${o.id})" class="px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold rounded-lg hover:bg-red-500 hover:text-white transition-all">Deletar Obra</button>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <button onclick="carregarObraParaEdicao(${o.id})" class="px-4 py-2 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold rounded-lg hover:bg-amber-500 hover:text-stone-950 transition-all">Editar</button>
+                        <button onclick="removerObra(${o.id})" class="px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold rounded-lg hover:bg-red-500 hover:text-white transition-all">Deletar</button>
+                    </div>
                 </div>
             `).join('');
         }
 
+        function carregarObraParaEdicao(id) {
+            const obras = getObras();
+            const obra = obras.find(o => o.id === id);
+            if (!obra) return;
+
+            document.getElementById('obra-edit-id').value = obra.id;
+            document.getElementById('obra-titulo').value = obra.titulo;
+            document.getElementById('obra-autor').value = obra.autor;
+            document.getElementById('obra-tipo').value = obra.tipo;
+            document.getElementById('obra-ano').value = obra.ano;
+            document.getElementById('obra-desc').value = obra.desc;
+
+            document.getElementById('titulo-form-obra').innerText = 'Editar Obra do Acervo';
+            document.getElementById('btn-submit-obra').innerText = 'Salvar Alterações';
+            document.getElementById('btn-cancelar-obra').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function cancelarEdicaoObra() {
+            formObra.reset();
+            document.getElementById('obra-edit-id').value = '';
+            document.getElementById('titulo-form-obra').innerText = 'Adicionar Nova Obra ao Acervo';
+            document.getElementById('btn-submit-obra').innerText = 'Salvar e Publicar Obra';
+            document.getElementById('btn-cancelar-obra').classList.add('hidden');
+        }
+
         formObra.addEventListener('submit', (e) => {
             e.preventDefault();
+            const editId = document.getElementById('obra-edit-id').value;
             const fileInput = document.getElementById('obra-img-file');
             const file = fileInput.files[0];
+
+            const titulo = document.getElementById('obra-titulo').value;
+            const autor = document.getElementById('obra-autor').value;
+            const tipo = document.getElementById('obra-tipo').value;
+            const ano = document.getElementById('obra-ano').value;
+            const desc = document.getElementById('obra-desc').value;
+
+            const finalizarSalvamento = (imgBase64) => {
+                if (editId) {
+                    // Editando obra existente
+                    const obras = getObras();
+                    const index = obras.findIndex(o => o.id == editId);
+                    if (index !== -1) {
+                        obras[index] = {
+                            id: Number(editId),
+                            titulo, autor, tipo, ano, desc,
+                            img: imgBase64 || obras[index].img
+                        };
+                        localStorage.setItem('obras_pinabage', JSON.stringify(obras));
+                    }
+                    alert('Obra atualizada com sucesso!');
+                    cancelarEdicaoObra();
+                } else {
+                    // Nova obra
+                    salvarObra({ titulo, autor, tipo, ano, desc, img: imgBase64 || IMAGEM_PADRAO });
+                    formObra.reset();
+                    alert('Obra publicada com sucesso!');
+                }
+                renderizarAdminObras();
+            };
 
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(uploadEvent) {
-                    salvarObra({
-                        titulo: document.getElementById('obra-titulo').value,
-                        autor: document.getElementById('obra-autor').value,
-                        tipo: document.getElementById('obra-tipo').value,
-                        ano: document.getElementById('obra-ano').value,
-                        img: uploadEvent.target.result,
-                        desc: document.getElementById('obra-desc').value
-                    });
-                    formObra.reset();
-                    renderizarAdminObras();
-                    alert('Obra publicada com sucesso!');
+                    finalizarSalvamento(uploadEvent.target.result);
                 };
                 reader.readAsDataURL(file);
+            } else {
+                finalizarSalvamento(null);
             }
         });
 
@@ -254,22 +320,12 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    obrasTemporariasArtista.push({
-                        titulo: titulo,
-                        ano: ano,
-                        img: e.target.result,
-                        desc: desc
-                    });
+                    obrasTemporariasArtista.push({ titulo, ano, img: e.target.result, desc });
                     limparCamposObraTemporaria();
                 };
                 reader.readAsDataURL(file);
             } else {
-                obrasTemporariasArtista.push({
-                    titulo: titulo,
-                    ano: ano,
-                    img: IMAGEM_PADRAO,
-                    desc: desc
-                });
+                obrasTemporariasArtista.push({ titulo, ano, img: IMAGEM_PADRAO, desc });
                 limparCamposObraTemporaria();
             }
         }
@@ -279,7 +335,7 @@
             document.getElementById('obra-art-ano').value = '';
             document.getElementById('obra-art-desc').value = '';
             document.getElementById('obra-art-img-file').value = '';
-            document.getElementById('lista-obras-temp').innerHTML = `✅ ${obrasTemporariasArtista.length} obra(s) adicionada(s) para este artista.`;
+            document.getElementById('lista-obras-temp').innerHTML = `✅ ${obrasTemporariasArtista.length} obra(s) vinculada(s) a este artista.`;
         }
 
         function renderizarAdminArtistas() {
@@ -294,13 +350,47 @@
                             <p class="text-xs text-stone-400 truncate max-w-xl mt-1">${a.bio}</p>
                         </div>
                     </div>
-                    <button onclick="removerArtista(${a.id})" class="px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold rounded-lg hover:bg-red-500 hover:text-white transition-all shrink-0">Deletar Artista</button>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <button onclick="carregarArtistaParaEdicao(${a.id})" class="px-4 py-2 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold rounded-lg hover:bg-amber-500 hover:text-stone-950 transition-all">Editar</button>
+                        <button onclick="removerArtista(${a.id})" class="px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold rounded-lg hover:bg-red-500 hover:text-white transition-all">Deletar</button>
+                    </div>
                 </div>
             `).join('');
         }
 
+        function carregarArtistaParaEdicao(id) {
+            const artistas = getArtistas();
+            const artista = artistas.find(a => a.id === id);
+            if (!artista) return;
+
+            document.getElementById('artista-edit-id').value = artista.id;
+            document.getElementById('artista-nome').value = artista.nome;
+            document.getElementById('artista-origem').value = artista.origem;
+            document.getElementById('artista-bio').value = artista.bio;
+            
+            // Carrega obras anteriores do artista para a lista temporária de edição
+            obrasTemporariasArtista = artista.obrasArtista ? [...artista.obrasArtista] : [];
+            document.getElementById('lista-obras-temp').innerHTML = `✅ ${obrasTemporariasArtista.length} obra(s) vinculada(s) a este artista.`;
+
+            document.getElementById('titulo-form-artista').innerText = 'Editar Artista e Biografia';
+            document.getElementById('btn-submit-artista').innerText = 'Salvar Alterações';
+            document.getElementById('btn-cancelar-artista').classList.remove('hidden');
+            window.scrollTo({ top: 1200, behavior: 'smooth' });
+        }
+
+        function cancelarEdicaoArtista() {
+            formArtista.reset();
+            document.getElementById('artista-edit-id').value = '';
+            obrasTemporariasArtista = [];
+            document.getElementById('lista-obras-temp').innerHTML = 'Nenhuma obra adicionada ainda.';
+            document.getElementById('titulo-form-artista').innerText = 'Adicionar Novo Artista / Biografia Completa';
+            document.getElementById('btn-submit-artista').innerText = 'Salvar e Publicar Artista';
+            document.getElementById('btn-cancelar-artista').classList.add('hidden');
+        }
+
         formArtista.addEventListener('submit', (e) => {
             e.preventDefault();
+            const editId = document.getElementById('artista-edit-id').value;
             const fileInput = document.getElementById('artista-img-file');
             const file = fileInput.files[0];
 
@@ -308,8 +398,7 @@
             const origem = document.getElementById('artista-origem').value;
             const nascimentoInput = document.getElementById('artista-nascimento').value;
             
-            // Formata a data de AAAA-MM-DD para DD/MM/AAAA se preenchida
-            let nascimentoFormatado = 'Não informado';
+            let nascimentoFormatado = '';
             if (nascimentoInput) {
                 const partes = nascimentoInput.split('-');
                 if (partes.length === 3) {
@@ -319,34 +408,59 @@
 
             const bio = document.getElementById('artista-bio').value;
 
-            if (!file) {
-                alert('Selecione a foto de perfil do artista!');
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(uploadEvent) {
-                const novoArtista = {
-                    nome: nome,
-                    origem: origem,
-                    nascimento: nascimentoFormatado,
-                    fotoPerfil: uploadEvent.target.result,
-                    bio: bio,
-                    obrasArtista: obrasTemporariasArtista
-                };
-
+            const finalizarSalvamentoArtista = (fotoBase64) => {
                 const artistas = getArtistas();
-                novoArtista.id = Date.now();
-                artistas.unshift(novoArtista);
-                localStorage.setItem('artistas_pinabage', JSON.stringify(artistas));
 
-                formArtista.reset();
-                obrasTemporariasArtista = [];
-                document.getElementById('lista-obras-temp').innerHTML = 'Nenhuma obra adicionada ainda.';
+                if (editId) {
+                    // Editando artista existente
+                    const index = artistas.findIndex(a => a.id == editId);
+                    if (index !== -1) {
+                        artistas[index] = {
+                            id: Number(editId),
+                            nome, origem,
+                            nascimento: nascimentoFormatado || artistas[index].nascimento,
+                            fotoPerfil: fotoBase64 || artistas[index].fotoPerfil,
+                            bio,
+                            obrasArtista: obrasTemporariasArtista
+                        };
+                        localStorage.setItem('artistas_pinabage', JSON.stringify(artistas));
+                    }
+                    alert('Artista atualizado com sucesso!');
+                    cancelarEdicaoArtista();
+                } else {
+                    // Novo artista
+                    if (!file) {
+                        alert('Selecione a foto de perfil do artista!');
+                        return;
+                    }
+                    const novoArtista = {
+                        id: Date.now(),
+                        nome, origem,
+                        nascimento: nascimentoFormatado || 'Não informado',
+                        fotoPerfil: fotoBase64,
+                        bio,
+                        obrasArtista: obrasTemporariasArtista
+                    };
+                    artistas.unshift(novoArtista);
+                    localStorage.setItem('artistas_pinabage', JSON.stringify(artistas));
+
+                    formArtista.reset();
+                    obrasTemporariasArtista = [];
+                    document.getElementById('lista-obras-temp').innerHTML = 'Nenhuma obra adicionada ainda.';
+                    alert('Artista publicado com sucesso!');
+                }
                 renderizarAdminArtistas();
-                alert('Artista publicado com sucesso!');
             };
-            reader.readAsDataURL(file);
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(uploadEvent) {
+                    finalizarSalvamentoArtista(uploadEvent.target.result);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                finalizarSalvamentoArtista(null);
+            }
         });
 
         function removerArtista(id) {
