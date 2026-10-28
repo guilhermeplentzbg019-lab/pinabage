@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Restrito | PINABAGE.COM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-stone-950 text-stone-200 antialiased p-6 sm:p-12">
+
+    <!-- Proteção de Acesso -->
+    <script src="data.js"></script>
+    <script>
+        const usuarioLogado = getUsuarioLogado();
+        if (!usuarioLogado || usuarioLogado.role !== 'admin') {
+            alert('Acesso negado! Apenas administradores podem acessar esta página.');
+            window.location.href = "login.html";
+        }
+    </script>
+
+    <!-- Header Admin -->
+    <div class="max-w-5xl mx-auto flex justify-between items-center mb-12 border-b border-stone-800 pb-6">
+        <div>
+            <span class="text-amber-500 text-xs font-bold uppercase tracking-widest block mb-1">Painel Restrito — Admin</span>
+            <h1 class="text-3xl sm:text-4xl font-serif font-bold text-stone-100">Gerenciamento do Site</h1>
+        </div>
+        <div class="flex items-center gap-4">
+            <a href="index.html" class="px-5 py-2.5 rounded-lg bg-stone-900 border border-stone-800 text-stone-300 text-xs font-bold uppercase tracking-wider hover:text-amber-400 transition-colors shadow">
+                ← Voltar ao Site
+            </a>
+            <button onclick="fazerLogout()" class="px-5 py-2.5 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold uppercase tracking-wider hover:bg-red-500 hover:text-white transition-all shadow">
+                Sair
+            </button>
+        </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto space-y-16">
+
+        <!-- ================= SEÇÃO 1: GERENCIAMENTO DE OBRAS ================= -->
+        <section class="bg-stone-900 p-8 rounded-2xl border border-stone-800 shadow-xl">
+            <h2 class="text-2xl font-serif font-bold text-stone-100 mb-6 border-b border-stone-800 pb-4">Gerenciar Obras do Acervo</h2>
+
+            <form id="form-obra" class="space-y-6 mb-12 bg-stone-950 p-6 rounded-xl border border-stone-800">
+                <h3 class="text-lg font-serif font-bold text-amber-500">Adicionar Nova Obra ao Acervo</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Título da Obra</label>
+                        <input type="text" id="obra-titulo" required class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Artista / Autor</label>
+                        <input type="text" id="obra-autor" required class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Tipo de Obra</label>
+                        <select id="obra-tipo" class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
+                            <option value="Pintura">Pintura</option>
+                            <option value="Desenho">Desenho</option>
+                            <option value="Gravura">Gravura</option>
+                            <option value="Escultura">Escultura</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Ano</label>
+                        <input type="text" id="obra-ano" required class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Enviar Imagem do Computador</label>
+                    <input type="file" id="obra-img-file" accept="image/*" required class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-stone-950 hover:file:bg-amber-400 cursor-pointer">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Descrição</label>
+                    <textarea id="obra-desc" rows="3" required class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none"></textarea>
+                </div>
+                <button type="submit" class="w-full py-4 rounded-xl bg-amber-500 text-stone-950 font-bold text-sm uppercase tracking-widest hover:bg-amber-400 transition-all shadow-lg">
+                    Salvar e Publicar Obra
+                </button>
+            </form>
+
+            <h3 class="text-xl font-serif font-bold text-stone-100 mb-6">Obras Atuais no Acervo</h3>
+            <div id="lista-obras" class="space-y-4"></div>
+        </section>
+
+        <!-- ================= SEÇÃO 2: GERENCIAMENTO DE ARTISTAS ================= -->
+        <section class="bg-stone-900 p-8 rounded-2xl border border-stone-800 shadow-xl">
+            <h2 class="text-2xl font-serif font-bold text-stone-100 mb-6 border-b border-stone-800 pb-4">Gerenciar Artistas e Biografias</h2>
+
+            <form id="form-artista" class="space-y-6 mb-12 bg-stone-950 p-6 rounded-xl border border-stone-800">
+                <h3 class="text-lg font-serif font-bold text-amber-500">Adicionar Novo Artista / Biografia</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Nome do Artista</label>
+                        <input type="text" id="artista-nome" required class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Origem / Ano (Ex: Bagé, 1975)</label>
+                        <input type="text" id="artista-origem" required class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Texto da Biografia</label>
+                    <textarea id="artista-bio" rows="4" required class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none"></textarea>
+                </div>
+                <button type="submit" class="w-full py-4 rounded-xl bg-amber-500 text-stone-950 font-bold text-sm uppercase tracking-widest hover:bg-amber-400 transition-all shadow-lg">
+                    Salvar e Publicar Artista
+                </button>
+            </form>
+
+            <h3 class="text-xl font-serif font-bold text-stone-100 mb-6">Artistas Cadastrados</h3>
+            <div id="lista-artistas" class="space-y-4"></div>
+        </section>
+
+        <!-- ================= SEÇÃO 3: GERENCIAMENTO DE VÍDEOS ================= -->
+        <section class="bg-stone-900 p-8 rounded-2xl border border-stone-800 shadow-xl">
+            <h2 class="text-2xl font-serif font-bold text-stone-100 mb-6 border-b border-stone-800 pb-4">Gerenciar Vídeos do Acervo Audiovisual</h2>
+
+            <form id="form-video" class="space-y-6 mb-12 bg-stone-950 p-6 rounded-xl border border-stone-800">
+                <h3 class="text-lg font-serif font-bold text-amber-500">Adicionar Novo Vídeo</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Título do Vídeo</label>
+                        <input type="text" id="video-titulo" required placeholder="Ex: O Clube de Gravura" class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Categoria</label>
+                        <input type="text" id="video-categoria" required placeholder="Ex: Documentário / Entrevista" class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Link do Vídeo (Embed do YouTube ou Arquivo MP4 local)</label>
+                    <input type="text" id="video-url" required placeholder="Ex: https://www.youtube.com/embed/CÓDIGO ou videos/meu_video.mp4" class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Descrição Curta</label>
+                    <textarea id="video-desc" rows="2" required placeholder="Breve resumo sobre o vídeo" class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none"></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-4 rounded-xl bg-amber-500 text-stone-950 font-bold text-sm uppercase tracking-widest hover:bg-amber-400 transition-all shadow-lg">
+                    Salvar e Publicar Vídeo
+                </button>
+            </form>
+
+            <h3 class="text-xl font-serif font-bold text-stone-100 mb-6">Vídeos Cadastrados</h3>
+            <div id="lista-videos" class="space-y-4"></div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- GERENCIAMENTO DE OBRAS ---
+        const formObra = document.getElementById('form-obra');
+        const listaObrasDiv = document.getElementById('lista-obras');
+
+        function renderizarAdminObras() {
+            const obras = getObras();
+            listaObrasDiv.innerHTML = obras.map(o => `
+                <div class="bg-stone-950 p-5 rounded-xl border border-stone-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex items-center gap-4">
+                        <img src="${o.img}" alt="${o.titulo}" class="w-16 h-16 object-cover rounded-lg border border-stone-800" onerror="this.src='${IMAGEM_PADRAO}'">
+                        <div>
+                            <span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest block mb-1">${o.tipo} — Acervo</span>
+                            <h4 class="text-lg font-serif font-bold text-stone-100">${o.titulo}</h4>
+                            <p class="text-xs text-stone-400">${o.autor} (${o.ano})</p>
+                        </div>
+                    </div>
+                    <button onclick="removerObra(${o.id})" class="px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold rounded-lg hover:bg-red-500 hover:text-white transition-all">Deletar Obra</button>
+                </div>
+            `).join('');
+        }
+
+        formObra.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fileInput = document.getElementById('obra-img-file');
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(uploadEvent) {
+                    const base64Image = uploadEvent.target.result;
+                    salvarObra({
+                        titulo: document.getElementById('obra-titulo').value,
+                        autor: document.getElementById('obra-autor').value,
+                        tipo: document.getElementById('obra-tipo').value,
+                        ano: document.getElementById('obra-ano').value,
+                        img: base64Image,
+                        desc: document.getElementById('obra-desc').value
+                    });
+                    formObra.reset();
+                    renderizarAdminObras();
+                    alert('Obra publicada com sucesso!');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function removerObra(id) {
+            if (confirm('Deletar esta obra?')) {
+                deletarObra(id);
+                renderizarAdminObras();
+            }
+        }
+
+        // --- GERENCIAMENTO DE ARTISTAS ---
+        const formArtista = document.getElementById('form-artista');
+        const listaArtistasDiv = document.getElementById('lista-artistas');
+
+        function renderizarAdminArtistas() {
+            const artistas = getArtistas();
+            listaArtistasDiv.innerHTML = artistas.map(a => `
+                <div class="bg-stone-950 p-5 rounded-xl border border-stone-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest block mb-1">${a.origem}</span>
+                        <h4 class="text-lg font-serif font-bold text-stone-100">${a.nome}</h4>
+                        <p class="text-xs text-stone-400 line-clamp-2 mt-1">${a.bio}</p>
+                    </div>
+                    <button onclick="removerArtista(${a.id})" class="px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold rounded-lg hover:bg-red-500 hover:text-white transition-all shrink-0">Deletar Artista</button>
+                </div>
+            `).join('');
+        }
+
+        formArtista.addEventListener('submit', (e) => {
+            e.preventDefault();
+            salvarArtista({
+                nome: document.getElementById('artista-nome').value,
+                origem: document.getElementById('artista-origem').value,
+                bio: document.getElementById('artista-bio').value
+            });
+            formArtista.reset();
+            renderizarAdminArtistas();
+            alert('Artista publicado com sucesso!');
+        });
+
+        function removerArtista(id) {
+            if (confirm('Deletar este artista?')) {
+                deletarArtista(id);
+                renderizarAdminArtistas();
+            }
+        }
+
+        // --- GERENCIAMENTO DE VÍDEOS ---
+        const formVideo = document.getElementById('form-video');
+        const listaVideosDiv = document.getElementById('lista-videos');
+
+        function renderizarAdminVideos() {
+            const videos = getVideos();
+            listaVideosDiv.innerHTML = videos.map(v => `
+                <div class="bg-stone-950 p-5 rounded-xl border border-stone-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest block mb-1">${v.categoria}</span>
+                        <h4 class="text-lg font-serif font-bold text-stone-100">${v.titulo}</h4>
+                        <p class="text-xs text-stone-400 mt-1">${v.desc}</p>
+                        <span class="text-[10px] text-stone-500 block mt-1 truncate max-w-md">URL: ${v.url}</span>
+                    </div>
+                    <button onclick="removerVideo(${v.id})" class="px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold rounded-lg hover:bg-red-500 hover:text-white transition-all shrink-0">Deletar Vídeo</button>
+                </div>
+            `).join('');
+        }
+
+        formVideo.addEventListener('submit', (e) => {
+            e.preventDefault();
+            salvarVideo({
+                titulo: document.getElementById('video-titulo').value,
+                categoria: document.getElementById('video-categoria').value,
+                url: document.getElementById('video-url').value,
+                desc: document.getElementById('video-desc').value
+            });
+            formVideo.reset();
+            renderizarAdminVideos();
+            alert('Vídeo publicado com sucesso!');
+        });
+
+        function removerVideo(id) {
+            if (confirm('Deletar este vídeo?')) {
+                deletarVideo(id);
+                renderizarAdminVideos();
+            }
+        }
+
+        renderizarAdminObras();
+        renderizarAdminArtistas();
+        renderizarAdminVideos();
+    </script>
+</body>
+</html>

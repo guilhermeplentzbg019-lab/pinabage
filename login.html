@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso Restrito | PINABAGE.COM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-stone-950 text-stone-200 antialiased min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-stone-900 border border-stone-800 p-8 sm:p-10 rounded-2xl max-w-md w-full shadow-2xl">
+        
+        <!-- Voltar ao Site -->
+        <div class="flex justify-between items-center mb-8">
+            <span class="text-amber-500 text-xs font-bold uppercase tracking-widest">Portal Cultural</span>
+            <a href="index.html" class="text-xs font-bold text-stone-400 hover:text-stone-100 transition-colors">← Ir ao Site</a>
+        </div>
+
+        <h1 class="text-3xl font-serif font-bold text-stone-100 mb-2 text-center">PINABAGE.COM</h1>
+        <p class="text-stone-400 text-xs text-center mb-8">Acesse sua conta ou registre-se para continuar.</p>
+
+        <!-- Abas -->
+        <div class="flex border-b border-stone-800 mb-8">
+            <button id="tab-login-btn" onclick="alternarAba('login')" class="w-1/2 py-3 text-center text-xs font-bold uppercase tracking-widest text-amber-500 border-b-2 border-amber-500">Login</button>
+            <button id="tab-registro-btn" onclick="alternarAba('registro')" class="w-1/2 py-3 text-center text-xs font-bold uppercase tracking-widest text-stone-400 hover:text-stone-200">Cadastrar-se</button>
+        </div>
+
+        <!-- Formulário de Login -->
+        <form id="form-login" class="space-y-5">
+            <div>
+                <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Usuário</label>
+                <input type="text" id="login-user" required placeholder="Digite seu usuário" class="w-full bg-stone-950 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Senha</label>
+                <input type="password" id="login-pass" required placeholder="Digite sua senha" class="w-full bg-stone-950 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
+            </div>
+            <button type="submit" class="w-full py-4 rounded-xl bg-amber-500 text-stone-950 font-bold text-xs uppercase tracking-widest hover:bg-amber-400 transition-all shadow-lg">
+                Entrar
+            </button>
+        </form>
+
+        <!-- Formulário de Registro -->
+        <form id="form-registro" class="space-y-5 hidden">
+            <div>
+                <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Novo Usuário</label>
+                <input type="text" id="reg-user" required placeholder="Escolha um nome de usuário" class="w-full bg-stone-950 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Senha</label>
+                <input type="password" id="reg-pass" required placeholder="Crie uma senha" class="w-full bg-stone-950 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
+            </div>
+            <button type="submit" class="w-full py-4 rounded-xl bg-stone-800 border border-stone-700 text-amber-400 font-bold text-xs uppercase tracking-widest hover:bg-stone-700 transition-all shadow-lg">
+                Criar Conta
+            </button>
+        </form>
+
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        function alternarAba(aba) {
+            const formLogin = document.getElementById('form-login');
+            const formRegistro = document.getElementById('form-registro');
+            const btnLogin = document.getElementById('tab-login-btn');
+            const btnReg = document.getElementById('tab-registro-btn');
+
+            if (aba === 'login') {
+                formLogin.classList.remove('hidden');
+                formRegistro.classList.add('hidden');
+                btnLogin.className = "w-1/2 py-3 text-center text-xs font-bold uppercase tracking-widest text-amber-500 border-b-2 border-amber-500";
+                btnReg.className = "w-1/2 py-3 text-center text-xs font-bold uppercase tracking-widest text-stone-400 hover:text-stone-200";
+            } else {
+                formRegistro.classList.remove('hidden');
+                formLogin.classList.add('hidden');
+                btnReg.className = "w-1/2 py-3 text-center text-xs font-bold uppercase tracking-widest text-amber-500 border-b-2 border-amber-500";
+                btnLogin.className = "w-1/2 py-3 text-center text-xs font-bold uppercase tracking-widest text-stone-400 hover:text-stone-200";
+            }
+        }
+
+        // Evento de Login (Redireciona para a home para o admin escolher quando ir ao admin)
+        document.getElementById('form-login').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('login-user').value;
+            const pass = document.getElementById('login-pass').value;
+
+            const res = fazerLogin(user, pass);
+            if (res.sucesso) {
+                alert('Login realizado com sucesso!');
+                window.location.href = "index.html";
+            } else {
+                alert(res.mensagem);
+            }
+        });
+
+        // Evento de Registro
+        document.getElementById('form-registro').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('reg-user').value;
+            const pass = document.getElementById('reg-pass').value;
+
+            const res = cadastrarUsuario(user, pass);
+            alert(res.mensagem);
+            if (res.sucesso) {
+                alternarAba('login');
+                document.getElementById('login-user').value = user;
+            }
+        });
+    </script>
+</body>
+</html>

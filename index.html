@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PINABAGE.COM | Pinacoteca Municipal Norma Vasconcellos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-stone-950 text-stone-200 antialiased">
+
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-stone-950/95 backdrop-blur-md border-b border-stone-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-4 group shrink-0">
+                <div class="w-14 h-14 rounded-lg bg-stone-900 border border-amber-500/50 flex items-center justify-center overflow-hidden shadow">
+                    <img src="imagens/logo.png" alt="Logo Pinacoteca" class="w-full h-full object-contain p-1" onerror="this.src='imagens/logo.jpg'">
+                </div>
+                <div>
+                    <span class="font-serif font-bold text-xl text-stone-100 tracking-wider block leading-none">PINABAGE.COM</span>
+                    <span class="text-xs text-stone-400 uppercase tracking-widest block mt-1.5">Pinacoteca Norma Vasconcellos</span>
+                </div>
+            </a>
+
+            <!-- Menu -->
+            <nav class="hidden xl:flex items-center gap-6 text-base font-semibold uppercase tracking-wider text-stone-300">
+                <a href="#acervo" class="hover:text-amber-400 transition-colors py-2">Acervo</a>
+                <a href="#biografias" class="hover:text-amber-400 transition-colors py-2">Biografias</a>
+                <a href="#exposicoes" class="hover:text-amber-400 transition-colors py-2">Exposições</a>
+                <a href="#memorial" class="hover:text-amber-400 transition-colors py-2">Memorial</a>
+                <a href="#reserva-tecnica" class="hover:text-amber-400 transition-colors py-2">Reserva</a>
+                <a href="#videos" class="hover:text-amber-400 transition-colors py-2">Vídeos</a>
+            </nav>
+
+            <!-- Área de Botões Dinâmica (Admin vs Login) -->
+            <div class="shrink-0 flex items-center gap-3" id="auth-menu-container"></div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="relative min-h-screen flex items-center justify-center pt-24 px-4 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="imagens/fundo-hero.png" alt="Hall da Pinacoteca" class="w-full h-full object-cover" onerror="this.src='imagens/fundo-hero.jpg'">
+            <div class="absolute inset-0 bg-stone-950/85 backdrop-blur-[1px]"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl text-center">
+            <span class="inline-block px-6 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-lg uppercase tracking-widest mb-8 font-semibold">Bagé - Rio Grande do Sul</span>
+            <h1 class="text-6xl sm:text-8xl font-serif font-bold mb-8 drop-shadow-md leading-tight">Pinacoteca Municipal <br><span class="gold-gradient-text">Norma Vasconcellos</span></h1>
+            <p class="text-stone-200 text-2xl sm:text-3xl mb-10 max-w-3xl mx-auto font-light leading-relaxed">Preservando a memória visual do Pampa, a história do Grupo de Bagé e o patrimônio das artes plásticas.</p>
+            <a href="#acervo" class="px-10 py-5 rounded-xl bg-amber-500 text-stone-950 font-bold text-xl hover:bg-amber-400 transition-all inline-block shadow-xl">Explorar Acervo</a>
+        </div>
+    </section>
+
+    <!-- 1. ACERVO PINACOTECA -->
+    <section id="acervo" class="py-28 border-t border-stone-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+                <div>
+                    <span class="text-amber-500 text-lg font-bold uppercase tracking-widest block mb-3">Coleção Oficial</span>
+                    <h2 class="text-4xl sm:text-6xl font-serif font-bold text-stone-100">Acervo Pinacoteca</h2>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-16" id="obras-grid"></div>
+
+            <div class="text-center">
+                <a href="galeria.html" class="inline-block px-10 py-5 rounded-2xl bg-amber-500 text-stone-950 font-bold text-lg uppercase tracking-widest hover:bg-amber-400 transition-all shadow-xl border border-amber-400">
+                    VER MAIS OBRAS →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. BIOGRAFIAS DOS ARTISTAS -->
+    <section id="biografias" class="py-28 bg-stone-900/30 border-t border-stone-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-4xl mx-auto mb-20">
+                <span class="text-amber-500 text-lg font-bold uppercase tracking-widest block mb-3">Grandes Nomes</span>
+                <h2 class="text-4xl sm:text-6xl font-serif font-bold text-stone-100 mb-6">Biografias dos Artistas</h2>
+                <p class="text-stone-300 text-2xl">Os artistas fundamentais que moldaram a identidade cultural de Bagé.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
+                <div class="bg-stone-900 p-10 rounded-2xl border border-stone-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <span class="text-sm font-bold text-amber-500 uppercase tracking-widest block mb-3">Bagé</span>
+                        <h3 class="text-3xl font-serif font-bold text-stone-100 mb-4">Adriana Riet</h3>
+                        <p class="text-stone-200 text-lg sm:text-xl leading-relaxed">Possui formação em Farmácia, mas encontrou na Arte a sua grande paixão. Iniciou seus estudos de pintura em Florianópolis (1994).</p>
+                    </div>
+                </div>
+                <div class="bg-stone-900 p-10 rounded-2xl border border-stone-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <span class="text-sm font-bold text-amber-500 uppercase tracking-widest block mb-3">Dom Pedrito, 1968</span>
+                        <h3 class="text-3xl font-serif font-bold text-stone-100 mb-4">Aline de Leon</h3>
+                        <p class="text-stone-200 text-lg sm:text-xl leading-relaxed">Reside em Bagé e decidiu trilhar o caminho das artes, encontrando na aquarela a plenitude de sua criação.</p>
+                    </div>
+                </div>
+                <div class="bg-stone-900 p-10 rounded-2xl border border-stone-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <span class="text-sm font-bold text-amber-500 uppercase tracking-widest block mb-3">Bagé, 1932</span>
+                        <h3 class="text-3xl font-serif font-bold text-stone-100 mb-4">Amélia Teresinha Pinheiro</h3>
+                        <p class="text-stone-200 text-lg sm:text-xl leading-relaxed">Licenciada em Desenho e Plástica pela FunBa/Bagé, atua na figura humana, cerâmica, escultura e aquarela.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="biografias.html" class="inline-block px-10 py-5 rounded-2xl bg-amber-500 text-stone-950 font-bold text-lg uppercase tracking-widest hover:bg-amber-400 transition-all shadow-xl border border-amber-400">
+                    VER MAIS BIOGRAFIAS →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. EXPOSIÇÕES PERMANENTES -->
+    <section id="exposicoes" class="py-28 border-t border-stone-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16">
+                <span class="text-amber-500 text-lg font-bold uppercase tracking-widest block mb-3">Visitação Contínua</span>
+                <h2 class="text-4xl sm:text-6xl font-serif font-bold text-stone-100">Exposições Permanentes</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="bg-stone-900 p-10 rounded-2xl border border-stone-800">
+                    <span class="text-sm font-bold text-amber-400 uppercase tracking-wider">Sala Principal</span>
+                    <h3 class="text-3xl font-serif font-bold text-stone-100 mt-3 mb-4">O Pampa na Gravura Social</h3>
+                    <p class="text-stone-200 text-xl leading-relaxed">Coleção permanente exibindo a revolução das matrizes produzidas na década de 1950.</p>
+                </div>
+                <div class="bg-stone-900 p-10 rounded-2xl border border-stone-800">
+                    <span class="text-sm font-bold text-amber-400 uppercase tracking-wider">Sala Histórica</span>
+                    <h3 class="text-3xl font-serif font-bold text-stone-100 mt-3 mb-4">Matrizes & Memórias de Bagé</h3>
+                    <p class="text-stone-200 text-xl leading-relaxed">Conjunto documental contendo estudos, correspondências e cadernos de esboço.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. MEMORIAL -->
+    <section id="memorial" class="py-28 border-t border-stone-800">
+        <div class="max-w-5xl mx-auto px-6">
+            <span class="text-amber-500 text-lg font-bold uppercase tracking-widest block mb-3">História e Legado</span>
+            <h2 class="text-4xl sm:text-6xl font-serif font-bold text-stone-100 mb-8">Memorial Grupo de Bagé</h2>
+            <p class="text-stone-200 text-2xl sm:text-3xl mb-16 leading-relaxed">Formado na década de 1950 por Glauco Rodrigues, Glênio Bianchetti, Danúbio Gonçalves e Carlos Scliar.</p>
+        </div>
+    </section>
+
+    <!-- 5. RESERVA TÉCNICA -->
+    <section id="reserva-tecnica" class="py-28 bg-stone-900/30 border-t border-stone-800">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row justify-between items-center gap-12">
+            <div>
+                <span class="text-amber-500 text-lg font-bold uppercase tracking-widest block mb-3">Conservação</span>
+                <h2 class="text-4xl sm:text-6xl font-serif font-bold text-stone-100 mb-6">Reserva Técnica</h2>
+                <p class="text-stone-200 text-xl sm:text-2xl max-w-2xl leading-relaxed">Espaço dedicado à higienização e acondicionamento seguro de todo o acervo não exposto.</p>
+            </div>
+            <a href="mailto:contato@pinabage.com" class="px-10 py-5 rounded-2xl bg-stone-800 border border-stone-700 text-stone-100 text-lg font-semibold hover:bg-stone-700 transition-colors shadow-xl shrink-0">Solicitar Agendamento</a>
+        </div>
+    </section>
+
+    <!-- 6. VÍDEOS -->
+    <section id="videos" class="py-28 border-t border-stone-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16">
+                <span class="text-amber-500 text-lg font-bold uppercase tracking-widest block mb-3">Acervo Audiovisual</span>
+                <h2 class="text-4xl sm:text-6xl font-serif font-bold text-stone-100">Vídeos</h2>
+                <p class="text-stone-200 text-2xl mt-3">Clique para assistir aos registros históricos.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10" id="videos-grid"></div>
+        </div>
+    </section>
+
+    <!-- Modal Global -->
+    <div id="modal" class="fixed inset-0 z-50 bg-black/95 hidden items-center justify-center p-6">
+        <div class="bg-stone-900 border border-stone-800 rounded-2xl max-w-4xl w-full p-8 relative shadow-2xl">
+            <button onclick="fecharModal()" class="absolute top-6 right-6 text-stone-300 hover:text-stone-100 font-bold text-sm uppercase px-4 py-2 bg-stone-800 rounded-lg z-20">Fechar</button>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-16 border-t border-stone-800 text-center text-stone-300 text-base">
+        &copy; 2026 PINABAGE.COM — Pinacoteca Municipal Norma Vasconcellos (Bagé - RS)
+    </footer>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script>
+        function atualizarMenuAuth() {
+            const container = document.getElementById('auth-menu-container');
+            const usuario = getUsuarioLogado();
+
+            if (usuario && usuario.role === 'admin') {
+                container.innerHTML = `
+                    <a href="admin.html" class="px-6 py-3 rounded-lg bg-amber-500 text-stone-950 text-sm font-bold uppercase tracking-wider hover:bg-amber-400 transition-all shadow-lg flex items-center gap-2">
+                        <span>Área Admin</span>
+                    </a>
+                    <button onclick="fazerLogout()" class="px-4 py-3 rounded-lg bg-stone-900 border border-stone-800 text-stone-400 text-xs font-bold uppercase tracking-wider hover:text-stone-100 transition-all">
+                        Sair
+                    </button>
+                `;
+            } else if (usuario) {
+                container.innerHTML = `
+                    <span class="text-xs text-stone-400 hidden lg:inline">Olá, <b>${usuario.usuario}</b></span>
+                    <button onclick="fazerLogout()" class="px-5 py-3 rounded-lg bg-stone-900 border border-stone-800 text-stone-300 text-xs font-bold uppercase tracking-wider hover:text-stone-100 transition-all shadow">
+                        Sair
+                    </button>
+                `;
+            } else {
+                container.innerHTML = `
+                    <a href="login.html" class="px-6 py-3 rounded-lg bg-amber-500/10 border border-amber-500/50 text-amber-400 text-sm font-bold uppercase tracking-wider hover:bg-amber-500 hover:text-stone-950 transition-all flex items-center gap-2 shadow">
+                        <span>Entrar / Cadastrar</span>
+                    </a>
+                `;
+            }
+        }
+
+        atualizarMenuAuth();
+
+        function renderObrasSite(lista) {
+            const destaques = lista.slice(0, 3);
+            document.getElementById('obras-grid').innerHTML = destaques.map(o => `
+                <div class="bg-stone-900 border border-stone-800 rounded-2xl overflow-hidden card-art flex flex-col justify-between group shadow-xl">
+                    <div>
+                        <div class="h-80 bg-stone-950 overflow-hidden relative flex items-center justify-center p-4 cursor-pointer" onclick="abrirZoom('${o.img}', '${o.titulo}', '${o.autor}', '${o.desc}')">
+                            <img src="${o.img}" alt="${o.titulo}" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" onerror="this.src='${IMAGEM_PADRAO}'">
+                            <span class="absolute top-4 right-4 px-4 py-1.5 bg-stone-950/90 border border-stone-700 text-stone-200 text-sm font-bold uppercase rounded-lg">
+                                ${o.tipo}
+                            </span>
+                            <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="px-6 py-3 bg-amber-500 text-stone-950 font-bold text-base rounded-xl shadow-xl">🔍 Ver Obra Inteira</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <span class="text-base font-bold text-amber-500 block mb-2">${o.autor} (${o.ano})</span>
+                            <h3 class="text-3xl font-serif font-bold text-stone-100 mb-4">${o.titulo}</h3>
+                            <p class="text-stone-200 text-lg leading-relaxed line-clamp-2">${o.desc}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderVideosSite() {
+            const listavideos = getVideos();
+            const grid = document.getElementById('videos-grid');
+            grid.innerHTML = listavideos.map(v => `
+                <div class="bg-stone-900 p-10 rounded-2xl border border-stone-800 card-art cursor-pointer shadow-xl flex flex-col justify-between" onclick="reproduzirVideo('${v.titulo}', '${v.categoria}', '${v.url}', '${v.desc}')">
+                    <div>
+                        <span class="text-sm font-bold text-amber-500 uppercase">${v.categoria}</span>
+                        <h3 class="text-2xl font-serif font-bold text-stone-100 mt-3 mb-4">${v.titulo}</h3>
+                        <p class="text-stone-200 text-lg mb-8 leading-relaxed">${v.desc}</p>
+                    </div>
+                    <span class="text-lg text-amber-400 font-semibold inline-flex items-center gap-2">▶ Assistir vídeo</span>
+                </div>
+            `).join('');
+        }
+
+        renderObrasSite(getObras());
+        renderVideosSite();
+
+        const modal = document.getElementById('modal');
+        const modalBody = document.getElementById('modal-body');
+
+        function fecharModal() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            modalBody.innerHTML = '';
+        }
+
+        function abrirZoom(imgSrc, titulo, autor, desc) {
+            modalBody.innerHTML = `
+                <div class="text-center">
+                    <span class="text-lg font-bold text-amber-500 uppercase">${autor}</span>
+                    <h3 class="text-4xl font-serif font-bold text-stone-100 mt-2 mb-6">${titulo}</h3>
+                    <div class="max-h-[70vh] bg-stone-950 rounded-xl overflow-hidden flex items-center justify-center p-4 border border-stone-800 mb-6">
+                        <img src="${imgSrc}" alt="${titulo}" class="max-h-[65vh] max-w-full object-contain rounded">
+                    </div>
+                    <p class="text-stone-200 text-xl leading-relaxed">${desc}</p>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function reproduzirVideo(titulo, categoria, url, desc) {
+            let playerHtml = '';
+            if (url.includes('youtube') || url.includes('vimeo')) {
+                playerHtml = `<iframe class="w-full h-full rounded-xl" src="${url}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            } else {
+                playerHtml = `<video class="w-full h-full rounded-xl" controls autoplay><source src="${url}" type="video/mp4">Seu navegador não suporta a reprodução deste vídeo.</video>`;
+            }
+
+            modalBody.innerHTML = `
+                <div>
+                    <span class="text-sm font-bold text-amber-500 uppercase">${categoria}</span>
+                    <h3 class="text-3xl font-serif font-bold text-stone-100 mt-1 mb-4">${titulo}</h3>
+                    <div class="aspect-video bg-black rounded-xl overflow-hidden border border-stone-800 mb-4">
+                        ${playerHtml}
+                    </div>
+                    <p class="text-stone-300 text-base leading-relaxed">${desc}</p>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+    </script>
+</body>
+</html>
