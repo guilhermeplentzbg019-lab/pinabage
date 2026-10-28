@@ -19,7 +19,7 @@
                 </div>
                 <div>
                     <span class="font-serif font-bold text-xl text-stone-100 tracking-wider block leading-none">PINABAGE.COM</span>
-                    <span class="text-xs text-stone-400 uppercase tracking-widest block mt-1.5">Pinacoteca Norma Vasconcellos</span>
+                    <span class="text-xs text-stone-400 uppercase tracking-widest block mt-1.5">Pinacoteca Municipal Norma Vasconcellos</span>
                 </div>
             </a>
 
@@ -73,9 +73,14 @@
         </div>
     </section>
 
-    <!-- 2. BIOGRAFIAS DOS ARTISTAS -->
-    <section id="biografias" class="py-28 bg-stone-900/30 border-t border-stone-800">
-        <div class="max-w-7xl mx-auto px-6">
+    <!-- 2. BIOGRAFIAS DOS ARTISTAS (Com imagem de fundo temática) -->
+    <section id="biografias" class="py-28 border-t border-stone-800 relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="imagens/fundo-biografias.jpg" alt="Biografias dos Artistas" class="w-full h-full object-cover" onerror="this.src='imagens/fundo-hero.jpg'">
+            <div class="absolute inset-0 bg-stone-950/90 backdrop-blur-[2px]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="text-center max-w-4xl mx-auto mb-20">
                 <span class="text-amber-500 text-lg font-bold uppercase tracking-widest block mb-3">Grandes Nomes</span>
                 <h2 class="text-4xl sm:text-6xl font-serif font-bold text-stone-100 mb-6">Biografias dos Artistas</h2>
@@ -83,21 +88,21 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
-                <div class="bg-stone-900 p-10 rounded-2xl border border-stone-800 shadow-xl flex flex-col justify-between">
+                <div class="bg-stone-900/90 backdrop-blur-md p-10 rounded-2xl border border-stone-800 shadow-xl flex flex-col justify-between">
                     <div>
                         <span class="text-sm font-bold text-amber-500 uppercase tracking-widest block mb-3">Bagé</span>
                         <h3 class="text-3xl font-serif font-bold text-stone-100 mb-4">Adriana Riet</h3>
                         <p class="text-stone-200 text-lg sm:text-xl leading-relaxed">Possui formação em Farmácia, mas encontrou na Arte a sua grande paixão. Iniciou seus estudos de pintura em Florianópolis (1994).</p>
                     </div>
                 </div>
-                <div class="bg-stone-900 p-10 rounded-2xl border border-stone-800 shadow-xl flex flex-col justify-between">
+                <div class="bg-stone-900/90 backdrop-blur-md p-10 rounded-2xl border border-stone-800 shadow-xl flex flex-col justify-between">
                     <div>
                         <span class="text-sm font-bold text-amber-500 uppercase tracking-widest block mb-3">Dom Pedrito, 1968</span>
                         <h3 class="text-3xl font-serif font-bold text-stone-100 mb-4">Aline de Leon</h3>
                         <p class="text-stone-200 text-lg sm:text-xl leading-relaxed">Reside em Bagé e decidiu trilhar o caminho das artes, encontrando na aquarela a plenitude de sua criação.</p>
                     </div>
                 </div>
-                <div class="bg-stone-900 p-10 rounded-2xl border border-stone-800 shadow-xl flex flex-col justify-between">
+                <div class="bg-stone-900/90 backdrop-blur-md p-10 rounded-2xl border border-stone-800 shadow-xl flex flex-col justify-between">
                     <div>
                         <span class="text-sm font-bold text-amber-500 uppercase tracking-widest block mb-3">Bagé, 1932</span>
                         <h3 class="text-3xl font-serif font-bold text-stone-100 mb-4">Amélia Teresinha Pinheiro</h3>
@@ -136,7 +141,7 @@
         </div>
     </section>
 
-    <!-- 4. MEMORIAL (Com imagem de fundo temática) -->
+    <!-- 4. MEMORIAL -->
     <section id="memorial" class="py-28 border-t border-stone-800 relative overflow-hidden">
         <div class="absolute inset-0 z-0">
             <img src="imagens/fundo-memorial.jpg" alt="Memorial Grupo de Bagé" class="w-full h-full object-cover" onerror="this.src='imagens/fundo-hero.jpg'">
