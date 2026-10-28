@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Enviar Imagem do Computador</label>
+                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Enviar Imagem da Obra</label>
                     <input type="file" id="obra-img-file" accept="image/*" required class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-stone-950 hover:file:bg-amber-400 cursor-pointer">
                 </div>
                 <div>
@@ -90,21 +90,49 @@
             <h2 class="text-2xl font-serif font-bold text-stone-100 mb-6 border-b border-stone-800 pb-4">Gerenciar Artistas e Biografias</h2>
 
             <form id="form-artista" class="space-y-6 mb-12 bg-stone-950 p-6 rounded-xl border border-stone-800">
-                <h3 class="text-lg font-serif font-bold text-amber-500">Adicionar Novo Artista / Biografia</h3>
+                <h3 class="text-lg font-serif font-bold text-amber-500">Adicionar Novo Artista / Biografia Completa</h3>
+                
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Nome do Artista</label>
                         <input type="text" id="artista-nome" required class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Origem / Ano (Ex: Bagé, 1975)</label>
-                        <input type="text" id="artista-origem" required class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
+                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Cidade de origem</label>
+                        <input type="text" id="artista-origem" required placeholder="Ex: Bagé, RS" class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
                     </div>
                 </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Data de Nascimento (Dia, Mês e Ano)</label>
+                        <input type="date" id="artista-nascimento" class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Foto de Perfil do Artista (Quadrada)</label>
+                        <input type="file" id="artista-img-file" accept="image/*" required class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-stone-950 hover:file:bg-amber-400 cursor-pointer">
+                    </div>
+                </div>
+
                 <div>
-                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Texto da Biografia</label>
+                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Texto da Biografia Completa</label>
                     <textarea id="artista-bio" rows="4" required class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none"></textarea>
                 </div>
+
+                <!-- Cadastro de Obras do Artista -->
+                <div class="bg-stone-900 p-4 rounded-xl border border-stone-800 space-y-4">
+                    <h4 class="text-sm font-serif font-bold text-amber-400">Adicionar Obras deste Artista (Opcional)</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <input type="text" id="obra-art-titulo" placeholder="Título da Obra" class="bg-stone-950 border border-stone-800 rounded-lg p-2.5 text-stone-200 text-xs outline-none">
+                        <input type="text" id="obra-art-ano" placeholder="Ano da Obra" class="bg-stone-950 border border-stone-800 rounded-lg p-2.5 text-stone-200 text-xs outline-none">
+                        <input type="file" id="obra-art-img-file" accept="image/*" class="bg-stone-950 border border-stone-800 rounded-lg p-2 text-stone-200 text-xs file:py-1 file:px-2 file:rounded file:border-0 file:bg-amber-500 file:text-stone-950 cursor-pointer">
+                    </div>
+                    <textarea id="obra-art-desc" rows="2" placeholder="Descrição da obra do artista..." class="w-full bg-stone-950 border border-stone-800 rounded-lg p-2.5 text-stone-200 text-xs outline-none"></textarea>
+                    <button type="button" onclick="adicionarObraTemporaria()" class="px-4 py-2 bg-stone-800 hover:bg-stone-700 text-amber-400 text-xs font-bold rounded-lg transition-all">+ Adicionar esta Obra à Lista do Artista</button>
+                    
+                    <div id="lista-obras-temp" class="text-xs text-stone-400 mt-2 space-y-1">Nenhuma obra adicionada ainda.</div>
+                </div>
+
                 <button type="submit" class="w-full py-4 rounded-xl bg-amber-500 text-stone-950 font-bold text-sm uppercase tracking-widest hover:bg-amber-400 transition-all shadow-lg">
                     Salvar e Publicar Artista
                 </button>
@@ -133,8 +161,8 @@
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Link do Vídeo (Embed do YouTube ou Arquivo MP4 local)</label>
-                    <input type="text" id="video-url" required placeholder="Ex: https://www.youtube.com/embed/CÓDIGO ou videos/meu_video.mp4" class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
+                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Link do Vídeo (Embed do YouTube)</label>
+                    <input type="text" id="video-url" required placeholder="Ex: https://www.youtube.com/embed/CÓDIGO" class="w-full bg-stone-900 border border-stone-800 rounded-lg p-3 text-stone-200 text-sm focus:border-amber-500 outline-none">
                 </div>
 
                 <div>
@@ -183,13 +211,12 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(uploadEvent) {
-                    const base64Image = uploadEvent.target.result;
                     salvarObra({
                         titulo: document.getElementById('obra-titulo').value,
                         autor: document.getElementById('obra-autor').value,
                         tipo: document.getElementById('obra-tipo').value,
                         ano: document.getElementById('obra-ano').value,
-                        img: base64Image,
+                        img: uploadEvent.target.result,
                         desc: document.getElementById('obra-desc').value
                     });
                     formObra.reset();
@@ -210,15 +237,62 @@
         // --- GERENCIAMENTO DE ARTISTAS ---
         const formArtista = document.getElementById('form-artista');
         const listaArtistasDiv = document.getElementById('lista-artistas');
+        let obrasTemporariasArtista = [];
+
+        function adicionarObraTemporaria() {
+            const titulo = document.getElementById('obra-art-titulo').value;
+            const ano = document.getElementById('obra-art-ano').value;
+            const desc = document.getElementById('obra-art-desc').value;
+            const fileInput = document.getElementById('obra-art-img-file');
+            const file = fileInput.files[0];
+
+            if (!titulo) {
+                alert('Informe ao menos o título da obra do artista!');
+                return;
+            }
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    obrasTemporariasArtista.push({
+                        titulo: titulo,
+                        ano: ano,
+                        img: e.target.result,
+                        desc: desc
+                    });
+                    limparCamposObraTemporaria();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                obrasTemporariasArtista.push({
+                    titulo: titulo,
+                    ano: ano,
+                    img: IMAGEM_PADRAO,
+                    desc: desc
+                });
+                limparCamposObraTemporaria();
+            }
+        }
+
+        function limparCamposObraTemporaria() {
+            document.getElementById('obra-art-titulo').value = '';
+            document.getElementById('obra-art-ano').value = '';
+            document.getElementById('obra-art-desc').value = '';
+            document.getElementById('obra-art-img-file').value = '';
+            document.getElementById('lista-obras-temp').innerHTML = `✅ ${obrasTemporariasArtista.length} obra(s) adicionada(s) para este artista.`;
+        }
 
         function renderizarAdminArtistas() {
             const artistas = getArtistas();
             listaArtistasDiv.innerHTML = artistas.map(a => `
                 <div class="bg-stone-950 p-5 rounded-xl border border-stone-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <div>
-                        <span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest block mb-1">${a.origem}</span>
-                        <h4 class="text-lg font-serif font-bold text-stone-100">${a.nome}</h4>
-                        <p class="text-xs text-stone-400 line-clamp-2 mt-1">${a.bio}</p>
+                    <div class="flex items-center gap-4 overflow-hidden w-full sm:w-auto">
+                        <img src="${a.fotoPerfil || IMAGEM_PADRAO}" alt="${a.nome}" class="w-14 h-14 object-cover rounded-lg border border-stone-800 shrink-0" onerror="this.src='${IMAGEM_PADRAO}'">
+                        <div class="overflow-hidden">
+                            <span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest block mb-1">${a.origem} | Nasc: ${a.nascimento || 'Não informado'}</span>
+                            <h4 class="text-lg font-serif font-bold text-stone-100">${a.nome}</h4>
+                            <p class="text-xs text-stone-400 truncate max-w-xl mt-1">${a.bio}</p>
+                        </div>
                     </div>
                     <button onclick="removerArtista(${a.id})" class="px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold rounded-lg hover:bg-red-500 hover:text-white transition-all shrink-0">Deletar Artista</button>
                 </div>
@@ -227,14 +301,52 @@
 
         formArtista.addEventListener('submit', (e) => {
             e.preventDefault();
-            salvarArtista({
-                nome: document.getElementById('artista-nome').value,
-                origem: document.getElementById('artista-origem').value,
-                bio: document.getElementById('artista-bio').value
-            });
-            formArtista.reset();
-            renderizarAdminArtistas();
-            alert('Artista publicado com sucesso!');
+            const fileInput = document.getElementById('artista-img-file');
+            const file = fileInput.files[0];
+
+            const nome = document.getElementById('artista-nome').value;
+            const origem = document.getElementById('artista-origem').value;
+            const nascimentoInput = document.getElementById('artista-nascimento').value;
+            
+            // Formata a data de AAAA-MM-DD para DD/MM/AAAA se preenchida
+            let nascimentoFormatado = 'Não informado';
+            if (nascimentoInput) {
+                const partes = nascimentoInput.split('-');
+                if (partes.length === 3) {
+                    nascimentoFormatado = `${partes[2]}/${partes[1]}/${partes[0]}`;
+                }
+            }
+
+            const bio = document.getElementById('artista-bio').value;
+
+            if (!file) {
+                alert('Selecione a foto de perfil do artista!');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(uploadEvent) {
+                const novoArtista = {
+                    nome: nome,
+                    origem: origem,
+                    nascimento: nascimentoFormatado,
+                    fotoPerfil: uploadEvent.target.result,
+                    bio: bio,
+                    obrasArtista: obrasTemporariasArtista
+                };
+
+                const artistas = getArtistas();
+                novoArtista.id = Date.now();
+                artistas.unshift(novoArtista);
+                localStorage.setItem('artistas_pinabage', JSON.stringify(artistas));
+
+                formArtista.reset();
+                obrasTemporariasArtista = [];
+                document.getElementById('lista-obras-temp').innerHTML = 'Nenhuma obra adicionada ainda.';
+                renderizarAdminArtistas();
+                alert('Artista publicado com sucesso!');
+            };
+            reader.readAsDataURL(file);
         });
 
         function removerArtista(id) {
@@ -256,7 +368,6 @@
                         <span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest block mb-1">${v.categoria}</span>
                         <h4 class="text-lg font-serif font-bold text-stone-100">${v.titulo}</h4>
                         <p class="text-xs text-stone-400 mt-1">${v.desc}</p>
-                        <span class="text-[10px] text-stone-500 block mt-1 truncate max-w-md">URL: ${v.url}</span>
                     </div>
                     <button onclick="removerVideo(${v.id})" class="px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold rounded-lg hover:bg-red-500 hover:text-white transition-all shrink-0">Deletar Vídeo</button>
                 </div>

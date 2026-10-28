@@ -9,10 +9,30 @@ const obrasIniciais = [
     { id: 3, titulo: "Figura Feminina e Ânfora", autor: "Amélia Teresinha Pinheiro", ano: "2021", tipo: "Desenho", img: "imagens/obra3.jpg", desc: "Estudo focado na figura humana e elementos tradicionais de cerâmica." }
 ];
 
-// Artistas padrão
+// Artistas padrão (atualizados com foto, nascimento e obras do artista)
 const artistasIniciais = [
-    { id: 1, nome: "Adriana Riet", origem: "Bagé", bio: "Adriana Bernardi Riet possui formação em Farmácia, mas encontrou na Arte a sua grande paixão." },
-    { id: 2, nome: "Aline de Leon", origem: "Dom Pedrito, 1968", bio: "Aline Fontoura de Leon reside em Bagé e encontrou na aquarela a plenitude de sua criação." }
+    { 
+        id: 1, 
+        nome: "Adriana Riet", 
+        origem: "Bagé, RS", 
+        nascimento: "Bagé - RS, 1970",
+        fotoPerfil: "imagens/obra1.jpg",
+        bio: "Adriana Bernardi Riet possui formação em Farmácia, mas encontrou na Arte a sua grande paixão. Iniciou seus estudos de pintura em Florianópolis (1994), participando de diversas exposições e desenvolvendo uma linguagem expressiva única no sul do estado.",
+        obrasArtista: [
+            { titulo: "Composição Pampeana", ano: "2022", img: "imagens/obra1.jpg", desc: "Estudo de cores acrílicas sobre tela." }
+        ]
+    },
+    { 
+        id: 2, 
+        nome: "Aline de Leon", 
+        origem: "Dom Pedrito, RS", 
+        nascimento: "Dom Pedrito - RS, 1968",
+        fotoPerfil: "imagens/obra2.jpg",
+        bio: "Aline Fontoura de Leon reside em Bagé e decidiu trilhar o caminho das artes, encontrando na aquarela a plenitude de sua criação e o retrato sensível das paisagens da região.",
+        obrasArtista: [
+            { titulo: "Aquarela do Pampa", ano: "2021", img: "imagens/obra2.jpg", desc: "Paisagem em técnica mista sobre papel." }
+        ]
+    }
 ];
 
 // Vídeos padrão
@@ -67,6 +87,7 @@ function getArtistas() {
 function salvarArtista(novoArtista) {
     const artistas = getArtistas();
     novoArtista.id = Date.now();
+    if (!novoArtista.obrasArtista) novoArtista.obrasArtista = [];
     artistas.unshift(novoArtista);
     localStorage.setItem('artistas_pinabage', JSON.stringify(artistas));
 }
